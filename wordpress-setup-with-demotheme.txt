@@ -1,0 +1,63 @@
+1. first install wordpress main theme 
+
+2. Paste demo-theme in theme folder (here location)
+C:\xampp\htdocs\bermondsey-electronics\wp-content\themes
+
+3. after that change demotheme name to your project name like "bermondsey-electronics"
+
+4. then replace demotheme name to :
+a> demotheme to "bermondseyelectronics"
+b> Demo Theme to "Bermondsey Electronics"
+c> DEMOTHEME to "BERMONDSEYELECTRONICS"
+
+5 Create database keep DB name same as themename
+
+add below line in function.php file inside of "function islandwizards_setup(){"
+-------------------for classic widgets-----------------------
+remove_theme_support( 'widgets-block-editor' );
+
+add below line in function.php file after "endif;"
+-------------------for bring classic page editor-----------------------
+add_filter('use_block_editor_for_post','__return_false');
+
+
+---------below Advanced Custom Fields PRO - license key----------------
+b3JkZXJfaWQ9NzM3MzZ8dHlwZT1kZXZlbG9wZXJ8ZGF0ZT0yMDE2LTAxLTI4IDA3OjA1OjU3
+
+---------Import Field Groups .json file--------
+acf-export-2018-12-14.json
+
+
+---------put this code in page.php file for flexible content show in page--------
+
+<?php if (class_exists('acf')) { 
+    
+        if (have_rows('flexible_content')):
+            while (the_flexible_field('flexible_content')) : 
+                include locate_template('flexible-parts/' . str_replace('_', '-', get_row_layout()) . '.php');
+            endwhile;
+        endif;
+        } ?>
+
+---------put this code in index.php file for flexible content show in blog post page--------
+<?php if (class_exists('acf')) { 
+    
+    if (have_rows('flexible_content', get_option( 'page_for_posts' ))):
+        while (the_flexible_field('flexible_content', get_option( 'page_for_posts' ))) : 
+            include locate_template('flexible-parts/' . str_replace('_', '-', get_row_layout()) . '.php');
+        endwhile;
+    endif;
+} ?>
+
+
+----------------------------
+
+username : piyush
+Password :this.admin@123
+
+------------no-index no follow enabled------------------
+to no-index no follow enabled karna hai local me koi bhi setup karo to and when you move this to live disabled karna hota he
+
+setting => reading => noindex,nofollow
+
+setting => permalink => post name (select)
